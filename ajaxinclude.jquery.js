@@ -12,7 +12,7 @@
          $("[data-append],[data-replace],[data-after],[data-before]").ajaxInclude();
 */
 (function( $ ){
-	$.fn.ajaxInclude = function( proxy ) {
+	$.fn.ajaxInclude = function( proxy, callback ) {
 		
 		var filelist = [],
 			els = this;
@@ -66,6 +66,9 @@
 					
 					if( !proxy || k === els.length-1 ){
 						$.get( url, function( data ) {	
+							if (window.callback) {
+								callback();
+							}
 							els.trigger( "ajaxInclude", [data] );
 						});
 					}
